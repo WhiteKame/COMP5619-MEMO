@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail</title>
+    <!--<link rel="stylesheet" href="/css/detail.css">-->
+    <script src="/javascript/detail.js"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
+    <script src="../javascript/jquery-1.9.1.min.js"></script>
+
+    <!--    <script>-->
+
+    <!--        function changeTrackerStatus(trackerId,trackerStatus){-->
+    <!--            console.log(trackerId)-->
+    <!--            console.log(trackerStatus)-->
+    <!--            $.get("/changeTrackerStatus/" + trackerId + "/"+ trackerStatus,function(data,status){-->
+    <!--                window.location.reload()-->
+    <!--            });-->
+    <!--        }-->
+    <!--    </script>-->
+    <script>
+
+        function changeTodoStatus(id,complete){
+            console.log(id)
+            console.log(complete)
+            $.get("/changeTodoStatus/" + id + "/"+ complete,function(data,status){
+                window.location.reload()
+            });
+        }
+
+
+
+
+
+
+    </script>
+
+
+</head>
+
+<body>
+<div>
+    <!--顶部导航栏-->
+    <div class="container mt-3">
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand mb-0 h1" href="/index">MEMO</a>
+                <div class="d-grid gap-2 d-md-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#editEvent">
+                        Edit Event
+                    </button>
+                    <a class="btn btn-primary" href="/information" role="button">Account</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Edit Event Modal -->
+    <div class="modal fade" id="editEvent" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editEventLabel">Edit Event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/updateEvent" method="post">
+                        <label class="form-label">Title</label>
+                        <input class="form-control" type="text" th:value="${eventsInfo.title}" name="title" id="title">
+                        <label class="form-label">Content</label>
+                        <textarea class="form-control" rows="15" th:text="${eventsInfo.content}" name="content"
+                                  id="content"></textarea>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-success ">Save</button>
+                </div>
+                </form>
+                <a class="btn btn-danger" th:href="@{'/delete/'+${eventId}}">Delete</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Tracker Modal -->
+    <div class="modal fade" id="addTracker" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTrackerLabel">Add Tracker</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/add_new_tracker" method="post">
+                        <label class="form-label">Tracker Title:</label>
+                        <input class="form-control" type="text" th:value="${trackerTitle}" name="trackerTitle">
+                        <label class="form-label">Issue Date:</label>
+                        <input class="form-control" type="text" th:value="${trackerDate}" name="trackerDate">
+                        <input class="form-control" type="hidden" value="0" name="trackerStatus">
+
+                        <div class="input-group">
+                            <input type="checkbox" class="btn-check" id="Mon" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="Mon">Mon</label>
+
+                            <input type="checkbox" class="btn-check" id="Tue" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="Tue">Tue</label>
+
+                            <input type="checkbox" class="btn-check" id="Wed" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="Wed">Wed</label>
+
+                            <input type="checkbox" class="btn-check" id="Thu" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="Thu">Thu</label>
+
+                            <input type="checkbox" class="btn-check" id="Fri" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="Fri">Fri</label>
+
+                            <input type="checkbox" class="btn-check" id="Sat" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="Sat">Sat</label>
+
+                            <input type="checkbox" class="btn-check" id="Sun" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="Sun">Sun</label>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-success ">Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--内容容器-->
+    <div class="container my-5">
+        <div class="row row-cols-1 row-cols-lg-3 gx-5 gy-3">
+            <!--Event名字和Content-->
+            <div class="col">
+                <div class="container">
+                    <h2 class="text-break" th:text="${eventsInfo.title}"></h2>
+                    <div class="card bg-warning">
+                        <div class="card-body">
+                            <h5 class="card-title">Content</h5>
+                            <p class="card-text" th:text="${eventsInfo.content}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--习惯记录-->
+            <div class="col">
+                <div class="container">
+                    <h2>Tracker</h2>
+                    <ul class="list-group list-group-flush">
+
+                        <li class="list-group-item" th:each="trackerItem : ${trackers}">
+                            <div class="card border-dark">
+                                <div class="card-body">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <h5 class="card-title"
+                                                    th:text="${trackerItem.trackerTitle}"></h5>
+                                            </div>
+                                            <div class="col-sm-4 text-end">
+                                                <a class="btn btn-link btn-sm me-md-2"
+                                                   th:href="@{'/updateTracker/'+${trackerItem.trackerId}}">
+                                                    <svg class="bi bi-pencil-square" width="1em" height="1em"
+                                                         viewBox="0 0 16 16" fill="currentColor"
+                                                         xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                        <path fill-rule="evenodd"
+                                                              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                                    </svg>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <p class="card-text" th:text="${trackerItem.trackerDate}"></p>
+                                        <!--                                        <p class="card-text" th:text="${trackerItem.trackerStatus}"></p>-->
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox"
+                                                   th:text="${trackerItem.trackerStatus}" id="flexCheckChecked" checked>
+                                            <label class="form-check-label" for="flexCheckChecked">
+                                                Status
+                                            </label>
+                                        </div>
+
+                                        <input type="checkbox" class="btn-check" th:id="${trackerItem.trackerId}"
+                                               autocomplete="off">
+                                        <label class="btn btn-outline-secondary"
+                                               th:for="${trackerItem.trackerId}">Checked</label>
+
+
+                                    </div>
+                                </div>
+                        </li>
+                    </ul>
+                    <!--                <a class="btn btn-primary me-md-2" th:href="@{'/addTracker/'}" role="button">New Tracker 新页面</a>-->
+                    <div class="text-center my-3">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#addTracker">
+                            Add Tracker
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!--todo list-->
+            <div class="col">
+                <div class="container">
+
+                    <h2>To-Do List</h2>
+                    <h4 id="date">当前日期</h4>
+
+
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" th:each="todo : ${todos}">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-auto" th:text="${todo.description}">
+                                        ToDo名称
+                                    </div>
+                                    <div class="col">
+                                        <a class="btn" th:href="@{/todo/{id}(id=${todo.id})}">
+                                            <svg class="bi bi-pencil-square" width="1em" height="1em"
+                                                 viewBox="0 0 16 16" fill="currentColor"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                <path fill-rule="evenodd"
+                                                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check text-end" th:href="@{/todo/{id}(id=${todo.id})}">
+                                            <input class="btn-check" type="checkbox"
+                                                   th:onclick="changeTodoStatus([[${todo.id}]],[[${todo.complete}]])"
+                                                   th:id="checkbox + ${todo.id}"
+                                                   th:checked="${todo.complete} == true">
+                                            <label class="btn btn-outline-secondary form-check-label"
+                                                   th:for="checkbox + ${todo.id}">Completed</label>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--                            <a class="btn btn-success" th:href="@{/todo/{id}(id=${todo.id})}">-->
+                            <!--                                <svg class="bi bi-pencil-square" width="1em" height="1em"-->
+                            <!--                                     viewBox="0 0 16 16" fill="currentColor"-->
+                            <!--                                     xmlns="http://www.w3.org/2000/svg">-->
+                            <!--                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>-->
+                            <!--                                    <path fill-rule="evenodd"-->
+                            <!--                                          d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>-->
+                            <!--                                </svg>-->
+                            <!--                            </a>-->
+
+                        </li>
+                    </ul>
+
+                    <!--                添加按钮-->
+                    <div class="text-center my-3">
+                        <a class="btn btn-primary" th:href="@{/todo/create}">Add Todo</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modification</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="container m-auto my-5 w-50">
+    <h1 class="text-center">Change Trakcer</h1>
+    <form id="form-change-info" role="form" action="/updateTracker" method="post">
+        <input name="_method" type="hidden" value="put">
+        <!--标题-->
+        <div class="form-floating my-3">
+            <input class="form-control user-select-none shadow" type="text" th:value="${trackerDetail.trackerTitle}"
+                   name="trackerTitle" id="trackerTitle" placeholder="Enter the Track Title here." required>
+            <label for="trackerTitle">Tracker Title</label>
+
+            <!--        日期-->
+            <div class="form-floating my-3">
+                <input class="form-control user-select-none shadow" type="text" th:value="${trackerDetail.trackerDate}"
+                       name="trackerDate" id="trackerDate" placeholder="Enter the days of the week here.">
+                <label for="trackerDate">Tracker Date</label>
+            </div>
+
+            <!--状态-->
+            <div class="form-floating">
+                <input class="form-control user-select-none shadow" type="text"
+                       th:value="${trackerDetail.trackerStatus}" name="trackerStatus" id="trackerStatus" placeholder="Enter the days of the week here.">
+                <label for="trackerStatus">State</label>
+            </div>
+
+            <!--登录按钮-->
+            <button class="btn btn-success my-3">Submit</button>
+    </form>
+
+
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+            data-bs-target="#deleteModal">
+        Delete
+    </button>
+
+    <!-- Delete -->
+    <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!--内容-->
+                    <p>Do you want to delete this tracker?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <a class="btn btn-danger" th:href="@{'/trackerDelete/'+${trackerDetail.trackerId}}">Yes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+
+

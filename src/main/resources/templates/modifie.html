@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Modification</title>
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
+<body>
+
+  <div style="width:600px;height:100%;margin-left:270px;">
+    <form action="/updateEvent" method="post">
+      <input name="_method" type="hidden" value="put">
+<!--      ID: <input class="form-control" type="text" th:value="${events.eventId}" name="eventId" id="eventId"><br>-->
+      Title: ：<input class="form-control" type="text" th:value="${events.title}" name="title" id="title"><br>
+      Content: <input class="form-control" type="text" th:value="${events.content}" name="content" id="content"><br>
+
+      <button class="btn btn-primary btn-lg btn-block">Submit</button>
+    </form>
+
+    <a class="btn btn-primary" th:href="@{'/detail/'+${events.eventId}}">Back</a>
+    <a class="btn btn-danger" th:href="@{'/delete/'+${events.eventId}}">Delete</a>
+
+  </div>
+
+
+
+
+</body>
+</html>
+
+

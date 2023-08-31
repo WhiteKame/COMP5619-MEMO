@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+
+    <!--<link rel="stylesheet" href="/css/index.css">-->
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
+    <!--    <script src="../javascript/valid.js"></script>-->
+</head>
+
+<body>
+
+<div>
+    <div class="container mt-3">
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand mb-0 h1" href="/index">MEMO</a>
+                <div class="d-grid gap-2 d-md-flex justify-content-end">
+                    <!--                    <a id="btn-new" class="btn btn-primary me-md-2" href="/add.html" role="button">Add Event</a>-->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop">
+                        Add Event
+                    </button>
+                    <a class="btn btn-primary" href="/information" role="button">Account</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Add Event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!--弹窗添加Event-->
+                    <form action="/add" method="post">
+                        <label for="validationTitle" class="form-label">Title</label>
+                        <input class="form-control" id="validationTitle" type="text" th:value="${title}" name="title"
+                               required>
+                        <div class="invalid-feedback">The title cannot be empty!</div>
+                        <label class="form-label">Content</label>
+                        <textarea class="form-control" rows="15" th:value="${content}" name="content"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-success ">Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5">
+        <div class="row row-cols-auto gx-5 gy-3">
+            <!--使用 thymeleaf foreach 标签循环对象-->
+            <div class="col" th:each="event : ${events}">
+                <a class="btn btn-warning shadow rounded" th:text="${event.title}"
+                   th:href="@{detail/{id}(id=${event.eventId})}" role="button"></a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.memo.mapper.TrackerMapper">
+
+    <resultMap id="TrackerEntityMap" type="com.project.memo.entity.Tracker">
+        <id column="tracker_id" property="trackerId"/>
+        <result column="tracker_title" property="trackerTitle"></result>
+        <result column="tracker_date" property="trackerDate"></result>
+        <result column="tracker_status" property="trackerStatus"></result>
+        <result column="event_id" property="eventId"></result>
+        <result column="tracker_mon" property="trackerMon"></result>
+        <result column="tracker_tue" property="trackerTue"></result>
+        <result column="tracker_wed" property="trackerWed"></result>
+        <result column="tracker_thu" property="trackerThu"></result>
+        <result column="tracker_fri" property="trackerFri"></result>
+        <result column="tracker_sat" property="trackerSat"></result>
+        <result column="tracker_sun" property="trackerSun"></result>
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="trackerId">
+        INSERT INTO trackerinfo (
+            tracker_title, tracker_date, tracker_status, event_id, tracker_mon, tracker_tue, tracker_wed, tracker_thu, tracker_fri, tracker_sat, tracker_sun
+        ) VALUES (
+            #{trackerTitle}, #{trackerDate}, #{trackerStatus}, #{eventId}, #{trackerMon}, #{trackerTue}, #{trackerWed}, #{trackerThu}, #{trackerFri}, #{trackerSat}, #{trackerSun}
+        )
+    </insert>
+    
+    <select id="countByEventId" resultType="java.lang.Integer">
+        SELECT count(*) From trackerinfo WHERE event_id=#{eventId}
+    </select>
+
+    <select id="getAllByEventId" resultMap="TrackerEntityMap">
+        SELECT *
+        From trackerinfo
+        WHERE event_id=#{eventId}
+    </select>
+
+    <delete id="trackerDelete">
+        DELETE FROM trackerinfo
+               WHERE tracker_id=#{trackerId}
+    </delete>
+
+    <select id="getOneByTrackerId" resultMap="TrackerEntityMap">
+        SELECT * FROM trackerinfo WHERE tracker_id = #{trackerId}
+    </select>
+
+    <update id="updateTracker">
+        UPDATE trackerinfo
+        SET tracker_title=#{trackerTitle}, tracker_date=#{trackerDate}, tracker_status=#{trackerStatus}, event_id=#{eventId}, tracker_mon=#{trackerMon}, tracker_tue=#{trackerTue}, tracker_wed=#{trackerWed}, tracker_thu=#{trackerThu}, tracker_fri=#{trackerFri}, tracker_sat=#{trackerSat}, tracker_sun=#{trackerSun}
+        WHERE tracker_id=#{trackerId}
+    </update>
+
+</mapper>

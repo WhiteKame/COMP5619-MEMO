@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.memo.mapper.EventMapper">
+
+  <resultMap id="EventEntityMap" type="com.project.memo.entity.Event">
+    <id column="event_id" property="eventId"/>
+    <!--    <result column="tracker_id" property="trackerId"></result>-->
+    <!--    <result column="to_do_list_id" property="toDoListId"></result>-->
+    <!--    <result column="user_id" property="userId"></result>-->
+  </resultMap>
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="eventId">
+    INSERT INTO
+      eventinfo (title, content, trackerId, toDoListId, user_id)
+    VALUES
+      (#{title}, #{content}, #{trackerId}, #{toDoListId}, #{userId})
+  </insert>
+
+  <select id="getAllEventByUserId" resultMap="EventEntityMap">
+    SELECT *
+    From eventinfo
+    WHERE user_id=#{userId}
+  </select>
+
+  <update id="update">
+    UPDATE eventinfo
+    SET title=#{title},content=#{content},user_id=#{userId}
+    WHERE event_id=#{eventId}
+  </update>
+
+  <insert id="save" useGeneratedKeys="true" keyProperty="eventId">
+    INSERT INTO
+        eventinfo (title,content,user_id)
+    VALUES
+        (#{title},#{content},#{userId})
+  </insert>
+
+  <delete id="deleteTracker">
+    DELETE FROM trackerinfo
+    WHERE event_id=#{eventId}
+  </delete>
+
+  <select id="getOneByEventTitle" resultMap="EventEntityMap">
+    SELECT *
+    From eventinfo
+    WHERE title=#{title}
+  </select>
+
+  <delete id="delete">
+    DELETE FROM eventinfo
+    WHERE event_id=#{eventId}
+  </delete>
+
+  <select id="getOneByEventId" resultMap="EventEntityMap">
+    SELECT *
+    From eventinfo
+    WHERE event_id=#{eventId}
+  </select>
+
+  <select id="getAll" resultMap="EventEntityMap">
+    SELECT *
+    From eventinfo
+  </select>
+
+</mapper>

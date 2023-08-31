@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.memo.mapper.ToDoMapper">
+    <update id="save">
+        INSERT INTO
+        todos (description, target_date, event_id)
+        VALUES
+        (#{description}, #{targetDate}, #{eventId})
+    </update>
+    <update id="update">
+        UPDATE todos
+        SET description=#{description},target_date=#{targetDate},complete=#{complete}
+        WHERE id=#{id}
+    </update>
+    <delete id="delete">
+        DELETE FROM todos
+        WHERE id=#{id}
+    </delete>
+
+    <select id="findTodosByEventId" resultType="com.project.memo.entity.ToDo">
+        <!--        select * from todos where to_days(target_date) = to_days(now());-->
+        select a.id,a.description,a.target_date as targetDate,a.event_id as eventId,a.complete from todos as a
+        where a.event_id = #{eventId} AND to_days(a.target_date) = to_days(now())
+    </select>
+
+    <select id="findById" resultType="com.project.memo.entity.ToDo">
+        <!--        select * from todos where to_days(target_date) = to_days(now()) as today;-->
+        select a.id,a.description,a.target_date as targetDate,a.event_id as eventId,a.complete from todos as a
+        where a.id = #{id} AND to_days(a.target_date) = to_days(now())
+    </select>
+</mapper>

@@ -1,0 +1,18 @@
+h1 {
+    color: #F08080;
+    font-size: 70px;
+    
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+.img1 {
+text-align: center;
+
+}
+#img {
+    width: 500px;
+    height: 500px;
+}

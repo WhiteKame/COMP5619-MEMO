@@ -1,0 +1,3 @@
+com\project\memo\MemoApplicationTests.class
+com\project\memo\mapper\UserMapperTests.class
+com\project\memo\service\UserServiceTests.class

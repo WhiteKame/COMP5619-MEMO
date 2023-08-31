@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
+    <title>ToDo</title>
+</head>
+
+<body>
+
+<div class="container m-auto my-5 w-50">
+    <form id="form-change-info" role="form" th:action="@{/todo/create}" th:object="${todo}" method="post">
+        <div class="form-floating my-3">
+            <input class="form-control user-select-none shadow" type="text" th:field="*{description}"
+                   name="description" id="description" placeholder="Enter the Track Title here." required>
+            <label for="description">Description</label>
+
+            <!--日期-->
+            <div class="form-floating my-3">
+<!--                <label for="target-date">Target date</label>-->
+                <input type="date" class="form-control user-select-none shadow" id="target-date" th:field="*{targetDate}" required>
+                <input class="form-control" type="hidden" id="id" th:field="*{id}">
+            </div>
+
+            <!--提交按钮-->
+            <button class="btn btn-success my-3">Submit</button>
+            <a class="btn btn-danger" th:href="@{/todo/delete/{id}(id=${todo.id})}" id="delete">
+                <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16"
+                     fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                    <path fill-rule="evenodd"
+                          d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                </svg>
+            </a>
+        </div>
+    </form>
+
+</div>
+
+
+</body>
